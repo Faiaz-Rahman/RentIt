@@ -15,11 +15,21 @@ import {Colors, Dim} from '../constants/theme'
 import Entypo from 'react-native-vector-icons/Entypo'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import {CartItem, ListItem} from '../components'
+import {CartItem, Header, ListItem} from '../components'
+import {SafeAreaView} from 'react-native-safe-area-context'
 
 export default function Home() {
   return (
-    <View style={styles.home}>
+    <SafeAreaView
+      initialMetrics={{
+        insets: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+        },
+      }}
+      style={styles.home}>
       <StatusBar
         translucent
         backgroundColor={'transparent'}
@@ -27,39 +37,7 @@ export default function Home() {
       />
 
       {/* Header */}
-      <View style={styles.header}>
-        <AntDesign
-          name="search1"
-          size={17}
-          color={'#fff'}
-          style={{
-            marginRight: 5,
-          }}
-        />
-        <View style={styles.locationContainer}>
-          <Entypo
-            name="location-pin"
-            size={17}
-            color={'#fff'}
-            style={{
-              marginRight: 5,
-            }}
-          />
-          <Text style={styles.locationText}>New Jersey</Text>
-        </View>
-        <View style={styles.bellIconC}>
-          <AntDesign
-            name="bells"
-            size={17}
-            color={'#fff'}
-            style={{
-              marginRight: 5,
-            }}
-          />
-          {/* Badge */}
-          <View style={styles.badge} />
-        </View>
-      </View>
+      <Header />
 
       <View style={styles.bestToRent}>
         <Text style={styles.rentText}>Find the best to rent!</Text>
@@ -171,7 +149,7 @@ export default function Home() {
           </View>
         </ScrollView>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -266,7 +244,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    top: Dim.height * 0.4,
+    top: Dim.height * 0.41,
   },
   bottomHeader: {
     // backgroundColor: 'red',
@@ -296,7 +274,8 @@ const styles = StyleSheet.create({
   home: {
     flex: 1,
     backgroundColor: Colors.homeBg,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 45,
+    height: Dim.height * 0.3,
+    // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 45,
   },
   header: {
     height: Dim.height * 0.09,

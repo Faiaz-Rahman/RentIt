@@ -10,7 +10,7 @@ export const Colors = {
   lightHomeBg: '#262b31',
   primary: '#774afd',
   cartItemBg: '#f1eef5',
-  lightPrimaryOpacity: 'rgba(226, 214, 255, .9)',
+  lightPrimaryOpacity: 'rgba(226, 214, 255, .7)',
   inactiveTintColor: '#4f5761',
 }
 

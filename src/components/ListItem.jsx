@@ -22,7 +22,7 @@ export default function ListItem({index}) {
         <Image
           source={imageArr[index % 4]}
           style={styles.imageListItemBookType}
-          resizeMode="contain "
+          resizeMode="contain"
         />
 
         <Text style={styles.bookTypeStyle}>{textArr[index % 4]}</Text>
