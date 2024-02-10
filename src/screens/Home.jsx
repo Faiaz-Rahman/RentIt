@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from 'react-native'
 import {Colors, Dim} from '../constants/theme'
 
@@ -67,6 +68,7 @@ export default function Home() {
       <FlatList
         data={[1, 2, 3, 4, 5, 6]}
         horizontal
+        showsHorizontalScrollIndicator={false}
         renderItem={({item, index}) => {
           return <ListItem index={index} />
         }}
@@ -93,74 +95,81 @@ export default function Home() {
           </TouchableOpacity>
         </View>
 
-        <View styles={styles.leaseAgainSliderContainer}>
-          <FlatList
-            data={[1, 2, 3, 4, 5, 6]}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={({item, index}) => {
-              return <CartItem index={index} />
-            }}
-            contentContainerStyle={styles.leaseAgainSliderStyle}
-          />
-        </View>
-
-        <View style={{paddingTop: 10, paddingLeft: 30}}>
-          <Text
-            style={{
-              color: '#000',
-              fontSize: 15,
-              fontFamily: 'Poppins-SemiBold',
-            }}>
-            Available Now
-          </Text>
-        </View>
-
-        <View style={styles.availableItemsContainer}>
-          <View style={styles.availableItemImage}>
-            <Image
-              source={require('../../assets/images/tv.png')}
-              style={styles.availableItemImageStyle}
-              resizeMode="contain"
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: Dim.height * 0.2,
+          }}>
+          <View styles={styles.leaseAgainSliderContainer}>
+            <FlatList
+              data={[1, 2, 3, 4, 5, 6]}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({item, index}) => {
+                return <CartItem index={index} />
+              }}
+              contentContainerStyle={styles.leaseAgainSliderStyle}
             />
           </View>
 
-          <View style={styles.availableItemTitleC}>
-            <Text style={styles.titleStyle}>Craftsman Cordless Drill</Text>
-            <View style={styles.availableItemInfoC}>
-              <Entypo name="location-pin" size={16} color={Colors.homeBg} />
-              <Text style={styles.distanceText}>4.0km</Text>
-              <Text style={styles.rateText}>15$ /hr</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  //   backgroundColor: 'red',
-                  marginBottom: 2,
-                  marginLeft: 7,
-                }}>
-                <Image
-                  source={require('../../assets/images/star.png')}
-                  style={{
-                    height: 13,
-                    width: 13,
-                    tintColor: Colors.primary,
-                  }}
-                />
-                <Text style={styles.ratingText}>4.9</Text>
-              </View>
-            </View>
+          <View style={{paddingTop: 10, paddingLeft: 30}}>
+            <Text
+              style={{
+                color: '#000',
+                fontSize: 15,
+                fontFamily: 'Poppins-SemiBold',
+                marginBottom: 5,
+              }}>
+              Available Now
+            </Text>
           </View>
 
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              top: 15,
-              right: 15,
-            }}>
-            <AntDesign name="heart" color={Colors.primary} size={15} />
-          </TouchableOpacity>
-        </View>
+          <View style={styles.availableItemsContainer}>
+            <View style={styles.availableItemImage}>
+              <Image
+                source={require('../../assets/images/tv.png')}
+                style={styles.availableItemImageStyle}
+                resizeMode="contain"
+              />
+            </View>
+
+            <View style={styles.availableItemTitleC}>
+              <Text style={styles.titleStyle}>Craftsman Cordless Drill</Text>
+              <View style={styles.availableItemInfoC}>
+                <Entypo name="location-pin" size={16} color={Colors.homeBg} />
+                <Text style={styles.distanceText}>4.0km</Text>
+                <Text style={styles.rateText}>15$ /hr</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    //   backgroundColor: 'red',
+                    marginBottom: 2,
+                    marginLeft: 7,
+                  }}>
+                  <Image
+                    source={require('../../assets/images/star.png')}
+                    style={{
+                      height: 13,
+                      width: 13,
+                      tintColor: Colors.primary,
+                    }}
+                  />
+                  <Text style={styles.ratingText}>4.9</Text>
+                </View>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                top: 15,
+                right: 15,
+              }}>
+              <AntDesign name="heart" color={Colors.primary} size={15} />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     </View>
   )
@@ -251,11 +260,13 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   bottomC: {
+    position: 'absolute',
     width: Dim.width,
     height: Dim.height * 0.6,
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    top: Dim.height * 0.4,
   },
   bottomHeader: {
     // backgroundColor: 'red',
