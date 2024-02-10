@@ -103,9 +103,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   tabBarStyle: {
-    height: Dim.height * 0.1,
-    width: Dim.width * 0.9,
-    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 0,
     elevation: 0,
   },
 })

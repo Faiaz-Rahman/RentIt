@@ -2,15 +2,10 @@ import React from 'react'
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native'
 import {Home} from './src/screens'
 
-import {BottomTab} from './src/navigation/BottomTab'
-import {NavigationContainer} from '@react-navigation/native'
+import {Routes} from './src/navigation/Routes'
 
 function App() {
-  return (
-    <NavigationContainer>
-      <BottomTab />
-    </NavigationContainer>
-  )
+  return <Routes />
 }
 
 const styles = StyleSheet.create({

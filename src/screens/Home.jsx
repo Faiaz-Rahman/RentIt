@@ -12,14 +12,22 @@ import {
 } from 'react-native'
 import {Colors, Dim} from '../constants/theme'
 
-import Entypo from 'react-native-vector-icons/Entypo'
-import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import {CartItem, ListItem} from '../components'
+import {AvailableItem, CartItem, Header, ListItem} from '../components'
+import {SafeAreaView} from 'react-native-safe-area-context'
 
 export default function Home() {
   return (
-    <View style={styles.home}>
+    <SafeAreaView
+      initialMetrics={{
+        insets: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+        },
+      }}
+      style={styles.home}>
       <StatusBar
         translucent
         backgroundColor={'transparent'}
@@ -27,39 +35,7 @@ export default function Home() {
       />
 
       {/* Header */}
-      <View style={styles.header}>
-        <AntDesign
-          name="search1"
-          size={17}
-          color={'#fff'}
-          style={{
-            marginRight: 5,
-          }}
-        />
-        <View style={styles.locationContainer}>
-          <Entypo
-            name="location-pin"
-            size={17}
-            color={'#fff'}
-            style={{
-              marginRight: 5,
-            }}
-          />
-          <Text style={styles.locationText}>New Jersey</Text>
-        </View>
-        <View style={styles.bellIconC}>
-          <AntDesign
-            name="bells"
-            size={17}
-            color={'#fff'}
-            style={{
-              marginRight: 5,
-            }}
-          />
-          {/* Badge */}
-          <View style={styles.badge} />
-        </View>
-      </View>
+      <Header />
 
       <View style={styles.bestToRent}>
         <Text style={styles.rentText}>Find the best to rent!</Text>
@@ -124,112 +100,14 @@ export default function Home() {
             </Text>
           </View>
 
-          <View style={styles.availableItemsContainer}>
-            <View style={styles.availableItemImage}>
-              <Image
-                source={require('../../assets/images/tv.png')}
-                style={styles.availableItemImageStyle}
-                resizeMode="contain"
-              />
-            </View>
-
-            <View style={styles.availableItemTitleC}>
-              <Text style={styles.titleStyle}>Craftsman Cordless Drill</Text>
-              <View style={styles.availableItemInfoC}>
-                <Entypo name="location-pin" size={16} color={Colors.homeBg} />
-                <Text style={styles.distanceText}>4.0km</Text>
-                <Text style={styles.rateText}>15$ /hr</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    //   backgroundColor: 'red',
-                    marginBottom: 2,
-                    marginLeft: 7,
-                  }}>
-                  <Image
-                    source={require('../../assets/images/star.png')}
-                    style={{
-                      height: 13,
-                      width: 13,
-                      tintColor: Colors.primary,
-                    }}
-                  />
-                  <Text style={styles.ratingText}>4.9</Text>
-                </View>
-              </View>
-            </View>
-
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                top: 15,
-                right: 15,
-              }}>
-              <AntDesign name="heart" color={Colors.primary} size={15} />
-            </TouchableOpacity>
-          </View>
+          <AvailableItem />
         </ScrollView>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  rateText: {
-    fontSize: 10,
-    fontFamily: 'Roboto-Bold',
-    marginLeft: 10,
-    marginBottom: 2,
-  },
-  ratingText: {
-    fontSize: 11,
-    fontFamily: 'Roboto-Bold',
-    color: Colors.primary,
-  },
-  availableItemTitleC: {
-    width: '83%',
-    height: '100%',
-    // backgroundColor: 'pink',
-    justifyContent: 'center',
-    paddingLeft: 15,
-    position: 'relative',
-  },
-
-  distanceText: {
-    fontSize: 10,
-    fontFamily: 'Poppins-Light',
-    color: '#000',
-  },
-  availableItemsContainer: {
-    height: Dim.height * 0.1,
-    width: Dim.width * 0.84,
-    borderRadius: 15,
-    alignSelf: 'center',
-    backgroundColor: Colors.cartItemBg,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 15,
-  },
-  availableItemInfoC: {
-    marginTop: 3,
-    flexDirection: 'row',
-    // backgroundColor: 'green',
-    alignItems: 'center',
-  },
-  titleStyle: {
-    fontFamily: 'Roboto-Bold',
-    color: '#000',
-    fontSize: 12,
-  },
-  availableItemImage: {
-    width: '17%',
-    height: '80%',
-  },
-  availableItemImageStyle: {
-    height: '100%',
-    width: '100%',
-  },
   badge: {
     height: 8,
     width: 8,
@@ -266,7 +144,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    top: Dim.height * 0.4,
+    top: Dim.height * 0.41,
   },
   bottomHeader: {
     // backgroundColor: 'red',
@@ -296,7 +174,8 @@ const styles = StyleSheet.create({
   home: {
     flex: 1,
     backgroundColor: Colors.homeBg,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 45,
+    height: Dim.height * 0.3,
+    // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 45,
   },
   header: {
     height: Dim.height * 0.09,
