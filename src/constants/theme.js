@@ -12,6 +12,7 @@ export const Colors = {
   cartItemBg: '#f1eef5',
   lightPrimaryOpacity: 'rgba(226, 214, 255, .7)',
   inactiveTintColor: '#4f5761',
+  green: '#2ab364',
 }
 
 export const ColorsArray = [

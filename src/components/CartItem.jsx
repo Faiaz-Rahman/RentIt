@@ -1,52 +1,61 @@
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  TouchableWithoutFeedback,
+} from 'react-native'
 import React from 'react'
 import {Colors, Dim} from '../constants/theme'
 
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-export default function CartItem() {
+export default function CartItem({onPress, index}) {
   const itemImage = require('../../assets/images/tv.png')
   return (
-    <View style={styles.cartItemC}>
-      <View style={styles.cartItem}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={itemImage}
-            style={styles.cartImageStyle}
-            resizeMode="cover"
-          />
-        </View>
-        <TouchableOpacity style={styles.icon}>
-          <AntDesign name="heart" color={Colors.primary} size={18} />
-        </TouchableOpacity>
+    <TouchableOpacity onPress={onPress} style={styles.cartItemC}>
+      <>
+        <View style={styles.cartItem}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={itemImage}
+              style={styles.cartImageStyle}
+              resizeMode="cover"
+            />
+          </View>
+          <TouchableOpacity style={styles.icon}>
+            <AntDesign name="heart" color={Colors.primary} size={18} />
+          </TouchableOpacity>
 
-        <View style={styles.ratingStyle}>
-          <Image
-            source={require('../../assets/images/star.png')}
-            style={{
-              height: 13,
-              width: 13,
-              tintColor: Colors.primary,
-            }}
-          />
-          <Text style={styles.rating}>4.1</Text>
+          <View style={styles.ratingStyle}>
+            <Image
+              source={require('../../assets/images/star.png')}
+              style={{
+                height: 13,
+                width: 13,
+                tintColor: Colors.primary,
+              }}
+            />
+            <Text style={styles.rating}>4.1</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.footerTextC}>
-        <Text style={styles.footerText}>Base Camp 4 - Person Tent</Text>
-        <Text
-          style={[
-            styles.footerText,
-            {
-              fontFamily: 'Poppins-Bold',
-              fontSize: 10,
-              marginTop: 5,
-            },
-          ]}>
-          15$ <Text style={{fontFamily: 'Roboto-Light'}}> /hr</Text>
-        </Text>
-      </View>
-    </View>
+        <View style={styles.footerTextC}>
+          <Text style={styles.footerText}>Base Camp 4 - Person Tent</Text>
+          <Text
+            style={[
+              styles.footerText,
+              {
+                fontFamily: 'Poppins-Bold',
+                fontSize: 10,
+                marginTop: 5,
+              },
+            ]}>
+            15$ <Text style={{fontFamily: 'Roboto-Light'}}> /hr</Text>
+          </Text>
+        </View>
+      </>
+    </TouchableOpacity>
   )
 }
 

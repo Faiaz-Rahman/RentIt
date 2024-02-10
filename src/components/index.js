@@ -2,5 +2,6 @@ import CartItem from './CartItem'
 import ListItem from './ListItem'
 import Header from './Header'
 import AvailableItem from './AvailableItem'
+import CustomHeader from './CustomHeader'
 
-export {CartItem, ListItem, Header, AvailableItem}
+export {CartItem, ListItem, CustomHeader, Header, AvailableItem}

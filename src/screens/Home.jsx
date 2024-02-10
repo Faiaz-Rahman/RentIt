@@ -16,7 +16,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import {AvailableItem, CartItem, Header, ListItem} from '../components'
 import {SafeAreaView} from 'react-native-safe-area-context'
 
+import {useNavigation} from '@react-navigation/native'
+
 export default function Home() {
+  const nav = useNavigation()
+
   return (
     <SafeAreaView
       initialMetrics={{
@@ -82,7 +86,14 @@ export default function Home() {
               horizontal
               showsHorizontalScrollIndicator={false}
               renderItem={({item, index}) => {
-                return <CartItem index={index} />
+                return (
+                  <CartItem
+                    index={index}
+                    onPress={() => {
+                      nav.navigate('details')
+                    }}
+                  />
+                )
               }}
               contentContainerStyle={styles.leaseAgainSliderStyle}
             />
