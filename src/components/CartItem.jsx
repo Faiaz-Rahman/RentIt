@@ -9,19 +9,10 @@ export default function CartItem() {
   return (
     <View style={styles.cartItemC}>
       <View style={styles.cartItem}>
-        <View
-          style={{
-            height: Dim.height * 0.13,
-            width: Dim.height * 0.13,
-            backgroundColor: 'transparent',
-            transform: [{rotate: '-10deg'}],
-          }}>
+        <View style={styles.imageContainer}>
           <Image
             source={itemImage}
-            style={{
-              height: '100%',
-              width: '100%',
-            }}
+            style={styles.cartImageStyle}
             resizeMode="cover"
           />
         </View>
@@ -64,6 +55,16 @@ const styles = StyleSheet.create({
     width: '80%',
     paddingTop: 5,
     paddingLeft: 10,
+  },
+  cartImageStyle: {
+    height: '100%',
+    width: '100%',
+    transform: [{rotate: '-10deg'}],
+  },
+  imageContainer: {
+    height: Dim.height * 0.13,
+    width: Dim.height * 0.13,
+    backgroundColor: 'transparent',
   },
   rating: {
     fontSize: 10,
