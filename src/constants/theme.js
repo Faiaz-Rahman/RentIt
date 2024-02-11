@@ -21,3 +21,10 @@ export const ColorsArray = [
   ['#fe8ab5', '#fe9aa4'],
   ['#fec17a', '#ffd285'],
 ]
+
+export const ColorOpacity = [
+  ['rgba(168, 245, 182, 1)', 'rgba(195, 251, 189, 1)'],
+  ['rgba(198, 144, 240, 1)', 'rgba(211, 163, 250, 1)'],
+  ['rgba(254, 138, 181, 1)', 'rgba(254, 154, 164, 1)'],
+  ['rgba(254, 193, 122, 1)', 'rgba(255, 210, 133, 1)'],
+]
