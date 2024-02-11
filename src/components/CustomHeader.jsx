@@ -6,7 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 import {useNavigation} from '@react-navigation/native'
 
-export default function CustomHeader({title}) {
+export default function CustomHeader({title, fav, onPress}) {
   const nav = useNavigation()
 
   return (
@@ -18,13 +18,13 @@ export default function CustomHeader({title}) {
         <AntDesign name="arrowleft" size={20} color={'#000'} />
       </TouchableOpacity>
       <Text style={styles.headerText}>{title}</Text>
-      <TouchableOpacity
-        onPress={() => {
-          console.log('fav pressed')
-        }}
-        style={styles.favContainer}>
-        <AntDesign name="heart" size={20} color={Colors.primary} />
-      </TouchableOpacity>
+      <View style={styles.favOuterContainer}>
+        <TouchableOpacity
+          onPress={onPress}
+          style={fav ? styles.favContainer : null}>
+          <AntDesign name="heart" size={20} color={Colors.primary} />
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -37,6 +37,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 25,
+  },
+  favOuterContainer: {
+    height: 50,
+    width: 50,
+    // backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   header: {
     height: Dim.height * 0.1,

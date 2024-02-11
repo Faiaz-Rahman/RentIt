@@ -78,7 +78,7 @@ export default function Home() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            paddingBottom: Dim.height * 0.2,
+            paddingBottom: Dim.height * 0.15,
           }}>
           <View styles={styles.leaseAgainSliderContainer}>
             <FlatList
