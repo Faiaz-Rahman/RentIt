@@ -38,6 +38,7 @@ export default function Details() {
   }
 
   const badgeArr = [1, 2, 3]
+  const ratingsArr = [1, 2, 3, 4, 5]
 
   return (
     <SafeAreaView style={styles.details}>
@@ -115,9 +116,10 @@ export default function Details() {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              {[1, 2, 3, 4, 5].map((item, ind) => {
+              {ratingsArr.map((item, ind) => {
                 return (
                   <Image
+                    key={ind}
                     source={starImage}
                     style={{
                       height: 17,
