@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Modal,
 } from 'react-native'
 import {Colors, Dim} from '../constants/theme'
 
@@ -19,15 +20,36 @@ import {
 } from '../components'
 
 import Entypo from 'react-native-vector-icons/Entypo'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import {Calendar} from 'react-native-calendars'
 
 export default function Details() {
   const [fav, setFav] = useState(true)
   const [activeIndex, setActiveIndex] = useState(0)
   const starImage = require('../../assets/images/star.png')
   const [seletedSubscription, setSelectedSubscription] = useState({
-    type: 'hourly',
+    type: 'Hourly',
     rate: 5,
   })
+  const [calendarModalVisible, setCalendarModalVisible] = useState(false)
+
+  const pricingInfo = [
+    {
+      rate: 5,
+      type: 'Hourly',
+      rateType: 'hr',
+    },
+    {
+      rate: 15,
+      type: 'Daily',
+      rateType: 'day',
+    },
+    {
+      rate: 40,
+      type: 'Monthly',
+      rateType: 'mth',
+    },
+  ]
 
   const handleIndex = ({nativeEvent}) => {
     const offset = nativeEvent.contentOffset
@@ -54,7 +76,6 @@ export default function Details() {
         }}
         fav={fav}
       />
-
       {/* Image Container */}
       <View>
         <ScrollView
@@ -74,7 +95,6 @@ export default function Details() {
           })}
         </ScrollView>
       </View>
-
       {/* slider thumb */}
       {/* {backgroundColor: Colors.lightPrimaryOpacity} */}
       <View style={styles.thumbContainer}>
@@ -95,7 +115,6 @@ export default function Details() {
           )
         })}
       </View>
-
       {/* User profile  */}
       <View style={styles.userProfile}>
         <View style={styles.userProfileImageC}>
@@ -144,60 +163,101 @@ export default function Details() {
           <Entypo name="chevron-thin-right" size={17} color={Colors.primary} />
         </TouchableOpacity>
       </View>
-
       {/* Pricing Container */}
       <View style={styles.pricingContainer}>
-        <PricingContainer
-          rate={5}
-          type="Hourly"
-          rateType={'hr'}
-          selected={seletedSubscription.type === 'hourly' ? true : false}
-          onPress={() =>
-            setSelectedSubscription({
-              type: 'hourly',
-              rate: 5,
-            })
-          }
-        />
-
-        <PricingContainer
-          rate={15}
-          type="Daily"
-          rateType={'day'}
-          selected={seletedSubscription.type === 'daily' ? true : false}
-          onPress={() =>
-            setSelectedSubscription({
-              type: 'daily',
-              rate: 15,
-            })
-          }
-        />
-
-        <PricingContainer
-          rate={40}
-          type="Monthly"
-          rateType={'mth'}
-          selected={seletedSubscription.type === 'monthly' ? true : false}
-          onPress={() =>
-            setSelectedSubscription({
-              type: 'monthly',
-              rate: 40,
-            })
-          }
-        />
+        {pricingInfo.map((item, ind) => {
+          return (
+            <PricingContainer
+              key={ind}
+              rate={item.rate}
+              type={item.type}
+              rateType={item.rateType}
+              selected={seletedSubscription.type === item.type ? true : false}
+              onPress={() =>
+                setSelectedSubscription({
+                  type: item.type,
+                  rate: item.rate,
+                })
+              }
+            />
+          )
+        })}
       </View>
-
+      {/* Further Customizing the button */}
+      <Button
+        onPress={() => {
+          setCalendarModalVisible(true)
+        }}
+        extraStyles={{
+          backgroundColor: Colors.lightPrimaryOpacity,
+          flexDirection: 'row',
+        }}>
+        {/* passing as a children prop */}
+        <View style={styles.leftPortion}>
+          <MaterialCommunityIcons
+            name="calendar-clock"
+            size={20}
+            color={Colors.primary}
+          />
+        </View>
+        <View style={styles.rightPortion}>
+          <Text style={styles.dateButton}>Set dates</Text>
+        </View>
+      </Button>
       <Button
         title={`Lease for ${60}$`}
         extraStyles={{
           marginTop: 10,
         }}
       />
+
+      <Modal
+        animationType="slide"
+        visible={calendarModalVisible}
+        onRequestClose={() => {
+          setCalendarModalVisible(false)
+        }}
+        transparent>
+        <View
+          style={{
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <StatusBar backgroundColor={'rgba(0,0,0,0.3)'} />
+          <Calendar style={styles.calendar} />
+        </View>
+      </Modal>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  calendar: {
+    height: Dim.height * 0.6,
+    width: Dim.width * 0.9,
+    elevation: 10,
+  },
+  leftPortion: {
+    width: '60%',
+    height: '100%',
+    // backgroundColor: 'red',
+    justifyContent: 'center',
+    paddingLeft: 20,
+  },
+  dateButton: {
+    fontSize: 12,
+    fontFamily: 'Poppins-Medium',
+    color: Colors.primary,
+  },
+  rightPortion: {
+    width: '30%',
+    height: '100%',
+    // backgroundColor: 'violet',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   pricingContainer: {
     height: Dim.height * 0.2,
     width: Dim.width,
