@@ -32,6 +32,9 @@ export default function Details() {
     rate: 5,
   })
   const [calendarModalVisible, setCalendarModalVisible] = useState(false)
+  const [selected, setSelected] = useState()
+  const [selectedSecond, setSelectedSecond] = useState()
+  const [selectMiddle, setSelectMiddle] = useState()
 
   const pricingInfo = [
     {
@@ -61,6 +64,18 @@ export default function Details() {
 
   const badgeArr = [1, 2, 3]
   const ratingsArr = [1, 2, 3, 4, 5]
+
+  const handleDayPress = day => {
+    // console.log(typeof day.day)
+    if (!selected) {
+      setSelected(day.dateString)
+    } else {
+      setSelectedSecond(day.dateString)
+    }
+
+    if (selected && selectedSecond) {
+    }
+  }
 
   return (
     <SafeAreaView style={styles.details}>
@@ -226,7 +241,36 @@ export default function Details() {
             justifyContent: 'center',
           }}>
           <StatusBar backgroundColor={'rgba(0,0,0,0.3)'} />
-          <Calendar style={styles.calendar} />
+          <Calendar
+            style={styles.calendar}
+            onDayPress={handleDayPress}
+            theme={{
+              calendarBackground: Colors.primary,
+              selectedDayTextColor: '#fff',
+              monthTextColor: '#fff',
+              todayTextColor: '#000000',
+              dayTextColor: '#fff',
+              arrowColor: '#fff',
+              selectedDayBackgroundColor: '#000',
+              textDayFontFamily: 'Roboto-Bold',
+            }}
+            hideExtraDays
+            disableArrowLeft={false}
+            markedDates={{
+              [selected]: {
+                color: '#fff',
+                startingDay: true,
+                textColor: Colors.primary,
+              },
+              [selectedSecond]: {
+                color: '#fff',
+                endingDay: true,
+                textColor: Colors.primary,
+              },
+              // [thir]: {},
+            }}
+            markingType="period"
+          />
         </View>
       </Modal>
     </SafeAreaView>
@@ -235,9 +279,12 @@ export default function Details() {
 
 const styles = StyleSheet.create({
   calendar: {
-    height: Dim.height * 0.6,
+    height: Dim.height * 0.63,
     width: Dim.width * 0.9,
     elevation: 10,
+    borderWidth: 5,
+    borderRadius: 10,
+    borderColor: Colors.primary,
   },
   leftPortion: {
     width: '60%',
