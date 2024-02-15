@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {
   View,
   Text,
@@ -32,9 +32,8 @@ export default function Details() {
     rate: 5,
   })
   const [calendarModalVisible, setCalendarModalVisible] = useState(false)
-  const [selected, setSelected] = useState()
-  const [selectedSecond, setSelectedSecond] = useState()
-  const [selectMiddle, setSelectMiddle] = useState()
+  const [selected, setSelected] = useState(null)
+  const [selectedSecond, setSelectedSecond] = useState(null)
 
   const pricingInfo = [
     {
@@ -66,16 +65,25 @@ export default function Details() {
   const ratingsArr = [1, 2, 3, 4, 5]
 
   const handleDayPress = day => {
-    // console.log(typeof day.day)
+    console.log(day)
     if (!selected) {
-      setSelected(day.dateString)
+      setSelected(day)
     } else {
-      setSelectedSecond(day.dateString)
-    }
-
-    if (selected && selectedSecond) {
+      setSelectedSecond(day)
     }
   }
+
+  useEffect(() => {
+    if (selected && selectedSecond) {
+      let obj = {
+        [selected]: {
+          color: '#fff',
+          startingDay: true,
+          textColor: Colors.primary,
+        },
+      }
+    }
+  }, [selected, selectedSecond])
 
   return (
     <SafeAreaView style={styles.details}>
@@ -257,12 +265,12 @@ export default function Details() {
             hideExtraDays
             disableArrowLeft={false}
             markedDates={{
-              [selected]: {
+              [selected.dateString]: {
                 color: '#fff',
                 startingDay: true,
                 textColor: Colors.primary,
               },
-              [selectedSecond]: {
+              [selectedSecond.dateString]: {
                 color: '#fff',
                 endingDay: true,
                 textColor: Colors.primary,
