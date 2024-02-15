@@ -34,6 +34,7 @@ export default function Details() {
   const [calendarModalVisible, setCalendarModalVisible] = useState(false)
   const [selected, setSelected] = useState(null)
   const [selectedSecond, setSelectedSecond] = useState(null)
+  const [objOfDates, setObjOfDates] = useState(null)
 
   const pricingInfo = [
     {
@@ -74,16 +75,48 @@ export default function Details() {
   }
 
   useEffect(() => {
+    console.log(selected, selectedSecond)
     if (selected && selectedSecond) {
-      let obj = {
-        [selected]: {
-          color: '#fff',
-          startingDay: true,
-          textColor: Colors.primary,
-        },
+      console.log('Inside the useEffect()')
+      let obj = {}
+
+      for (
+        let i = 0;
+        i <= selectedSecond.dateString - selected.dateString;
+        ++i
+      ) {
+        console.log(`${selected.year}-${selected.month}-${selected.day + i}`)
+        if (!obj[`${selected.year}-${selected.month}-${selected.day + i}`]) {
+          if (i === 0) {
+            obj[`${selected.year}-${selected.month}-${selected.day + i}`] = {
+              color: '#fff',
+              startingDay: true,
+              textColor: Colors.primary,
+            }
+          } else if (i === selectedSecond.dateString - selected.dateString) {
+            obj[`${selected.year}-${selected.month}-${selected.day + i}`] = {
+              color: '#fff',
+              endingDay: true,
+              textColor: Colors.primary,
+            }
+          } else {
+            obj[`${selected.year}-${selected.month}-${selected.day + i}`] = {
+              color: '#fff',
+              marked: true,
+              textColor: Colors.primary,
+            }
+          }
+        }
       }
+      console.log('the object is', obj)
+
+      setObjOfDates(obj)
     }
   }, [selected, selectedSecond])
+
+  useEffect(() => {
+    console.log(objOfDates)
+  }, [objOfDates])
 
   return (
     <SafeAreaView style={styles.details}>
@@ -264,19 +297,17 @@ export default function Details() {
             }}
             hideExtraDays
             disableArrowLeft={false}
-            markedDates={{
-              [selected]: {
-                color: '#fff',
-                startingDay: true,
-                textColor: Colors.primary,
-              },
-              [selectedSecond]: {
-                color: '#fff',
-                endingDay: true,
-                textColor: Colors.primary,
-              },
-              // [thir]: {},
-            }}
+            markedDates={
+              objOfDates === null
+                ? {
+                    [selected]: {
+                      color: '#fff',
+                      startingDay: true,
+                      textColor: Colors.primary,
+                    },
+                  }
+                : objOfDates
+            }
             markingType="period"
           />
         </View>
