@@ -265,12 +265,12 @@ export default function Details() {
             hideExtraDays
             disableArrowLeft={false}
             markedDates={{
-              [selected.dateString]: {
+              [selected]: {
                 color: '#fff',
                 startingDay: true,
                 textColor: Colors.primary,
               },
-              [selectedSecond.dateString]: {
+              [selectedSecond]: {
                 color: '#fff',
                 endingDay: true,
                 textColor: Colors.primary,
