@@ -34,7 +34,7 @@ export default function Details() {
   const [calendarModalVisible, setCalendarModalVisible] = useState(false)
   const [selected, setSelected] = useState(null)
   const [selectedSecond, setSelectedSecond] = useState(null)
-  const [objOfDates, setObjOfDates] = useState(null)
+  const [objOfDates, setObjOfDates] = useState({})
 
   const pricingInfo = [
     {
@@ -66,11 +66,15 @@ export default function Details() {
   const ratingsArr = [1, 2, 3, 4, 5]
 
   const handleDayPress = day => {
-    console.log(day)
+    // console.log('selected day =>', day)
     if (!selected) {
-      setSelected(day)
+      setSelected({dateString: day.dateString})
     } else {
-      setSelectedSecond(day)
+      if (day.day <= new Date(selected.dateString).getDate()) {
+        setSelected({dateString: day.dateString})
+      } else {
+        setSelectedSecond({dateString: day.dateString})
+      }
     }
   }
 
@@ -81,17 +85,56 @@ export default function Details() {
   // }
 
   useEffect(() => {
+    let dateObject = {}
     if (selected && selectedSecond) {
-      console.log('Inside the useEffect()')
-
-      const dateObject = {}
+      // console.log('Inside the useEffect()')
 
       let currentDate = new Date(selected.dateString),
         endDate = new Date(selectedSecond.dateString)
 
-      while (currentDate <= endDate) {}
+      while (currentDate <= endDate) {
+        let dateISOString = currentDate.toISOString().split('T')[0]
+
+        if (currentDate.getTime() === new Date(selected.dateString).getTime()) {
+          dateObject[dateISOString] = {
+            color: '#fff',
+            startingDay: true,
+            textColor: Colors.primary,
+          }
+        } else if (
+          currentDate.getTime() ===
+          new Date(selectedSecond.dateString).getTime()
+        ) {
+          dateObject[dateISOString] = {
+            color: '#fff',
+            textColor: Colors.primary,
+            endingDay: true,
+          }
+        } else {
+          dateObject[dateISOString] = {
+            color: '#fff',
+            textColor: Colors.primary,
+          }
+        }
+
+        currentDate.setDate(currentDate.getDate() + 1)
+      }
+
+      setObjOfDates(dateObject)
+    } else if (selected) {
+      dateObject[selected.dateString] = {
+        color: '#fff',
+        textColor: Colors.primary,
+        selected: true,
+      }
+
+      setObjOfDates(dateObject)
     }
   }, [selected, selectedSecond])
+
+  // useEffect(() => {
+  //   console.log('Object of dates =>', objOfDates)
+  // }, [objOfDates])
 
   return (
     <SafeAreaView style={styles.details}>
@@ -243,10 +286,13 @@ export default function Details() {
       />
 
       <Modal
-        animationType="slide"
+        animationType="fade"
         visible={calendarModalVisible}
         onRequestClose={() => {
           setCalendarModalVisible(false)
+          setObjOfDates({})
+          setSelected(null)
+          setSelectedSecond(null)
         }}
         transparent>
         <View
@@ -256,7 +302,7 @@ export default function Details() {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <StatusBar backgroundColor={'rgba(0,0,0,0.3)'} />
+          <StatusBar backgroundColor={'rgba(0,0,0,0.3)'} animated />
           <Calendar
             style={styles.calendar}
             onDayPress={handleDayPress}
@@ -267,23 +313,15 @@ export default function Details() {
               todayTextColor: '#000000',
               dayTextColor: '#fff',
               arrowColor: '#fff',
-              selectedDayBackgroundColor: '#000',
               textDayFontFamily: 'Roboto-Bold',
             }}
             hideExtraDays
             disableArrowLeft={false}
-            markedDates={
-              objOfDates === null
-                ? {
-                    [selected]: {
-                      color: '#fff',
-                      startingDay: true,
-                      textColor: Colors.primary,
-                    },
-                  }
-                : objOfDates
-            }
+            // markedDates={objOfDates}
+            markedDates={objOfDates}
             markingType="period"
+            enableSwipeMonths
+            monthFormat="yyyy MMMM"
           />
         </View>
       </Modal>
