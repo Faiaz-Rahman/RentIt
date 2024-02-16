@@ -302,6 +302,9 @@ export default function Details() {
             size={20}
             color={Colors.primary}
           />
+          <Text style={styles.numberOfDaysText}>{`${
+            Object.keys(objOfDates).length
+          } days`}</Text>
         </View>
         <View style={styles.rightPortion}>
           <Text style={styles.dateButton}>Set dates</Text>
@@ -319,7 +322,7 @@ export default function Details() {
         visible={calendarModalVisible}
         onRequestClose={() => {
           setCalendarModalVisible(false)
-          setObjOfDates({})
+          // setObjOfDates({})
           setSelected(null)
           setSelectedSecond(null)
         }}
@@ -371,8 +374,16 @@ const styles = StyleSheet.create({
     width: '60%',
     height: '100%',
     // backgroundColor: 'red',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     paddingLeft: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  numberOfDaysText: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    color: Colors.primary,
+    marginLeft: 10,
   },
   dateButton: {
     fontSize: 12,
