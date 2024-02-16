@@ -28,7 +28,7 @@ export default function Details() {
   const [fav, setFav] = useState(true)
   const [activeIndex, setActiveIndex] = useState(0)
   const starImage = require('../../assets/images/star.png')
-  const [seletedSubscription, setSelectedSubscription] = useState({
+  const [selectedSubscription, setSelectedSubscription] = useState({
     type: 'Hourly',
     rate: 5,
   })
@@ -275,7 +275,7 @@ export default function Details() {
               rate={item.rate}
               type={item.type}
               rateType={item.rateType}
-              selected={seletedSubscription.type === item.type ? true : false}
+              selected={selectedSubscription.type === item.type ? true : false}
               onPress={() =>
                 setSelectedSubscription({
                   type: item.type,
@@ -304,14 +304,16 @@ export default function Details() {
           />
           <Text style={styles.numberOfDaysText}>{`${
             Object.keys(objOfDates).length
-          } days`}</Text>
+          } ${Object.keys(objOfDates).length > 1 ? 'Days' : 'Day'}`}</Text>
         </View>
         <View style={styles.rightPortion}>
           <Text style={styles.dateButton}>Set dates</Text>
         </View>
       </Button>
       <Button
-        title={`Lease for ${60}$`}
+        title={`Lease for ${
+          Object.keys(objOfDates).length * selectedSubscription.rate
+        }$`}
         extraStyles={{
           marginTop: 10,
         }}
