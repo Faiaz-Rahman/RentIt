@@ -74,49 +74,24 @@ export default function Details() {
     }
   }
 
+  // obj[`${selected.year}-${selected.month}-${selected.day + i}`] = {
+  //   color: '#fff',
+  //   startingDay: true,
+  //   textColor: Colors.primary,
+  // }
+
   useEffect(() => {
-    console.log(selected, selectedSecond)
     if (selected && selectedSecond) {
       console.log('Inside the useEffect()')
-      let obj = {}
 
-      for (
-        let i = 0;
-        i <= selectedSecond.dateString - selected.dateString;
-        ++i
-      ) {
-        console.log(`${selected.year}-${selected.month}-${selected.day + i}`)
-        if (!obj[`${selected.year}-${selected.month}-${selected.day + i}`]) {
-          if (i === 0) {
-            obj[`${selected.year}-${selected.month}-${selected.day + i}`] = {
-              color: '#fff',
-              startingDay: true,
-              textColor: Colors.primary,
-            }
-          } else if (i === selectedSecond.dateString - selected.dateString) {
-            obj[`${selected.year}-${selected.month}-${selected.day + i}`] = {
-              color: '#fff',
-              endingDay: true,
-              textColor: Colors.primary,
-            }
-          } else {
-            obj[`${selected.year}-${selected.month}-${selected.day + i}`] = {
-              color: '#fff',
-              marked: true,
-              textColor: Colors.primary,
-            }
-          }
-        }
-      }
-      console.log('the object is', obj)
+      const dateObject = {}
 
-      setObjOfDates(obj)
+      let currentDate = new Date(selected.dateString),
+        endDate = new Date(selectedSecond.dateString)
+
+      while (currentDate <= endDate) {}
     }
   }, [selected, selectedSecond])
-
-  useEffect(() => {
-    console.log(objOfDates)
-  }, [objOfDates])
 
   return (
     <SafeAreaView style={styles.details}>
