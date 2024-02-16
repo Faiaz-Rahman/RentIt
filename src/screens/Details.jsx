@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  ToastAndroid,
 } from 'react-native'
 import {Colors, Dim} from '../constants/theme'
 
@@ -71,7 +72,18 @@ export default function Details() {
       setSelected({dateString: day.dateString})
     } else {
       if (day.day <= new Date(selected.dateString).getDate()) {
-        setSelected({dateString: day.dateString})
+        if (day.day < new Date().getDate()) {
+          ToastAndroid.showWithGravity(
+            'Cannot select a day from past!',
+            1500,
+            2,
+          )
+        } else {
+          if (day.day === new Date(selected.dateString).getDate()) {
+            setSelectedSecond({dateString: day.dateString})
+          }
+          setSelected({dateString: day.dateString})
+        }
       } else {
         setSelectedSecond({dateString: day.dateString})
       }
@@ -88,39 +100,56 @@ export default function Details() {
     let dateObject = {}
     if (selected && selectedSecond) {
       // console.log('Inside the useEffect()')
+      // console.log(selected, selectedSecond)
 
-      let currentDate = new Date(selected.dateString),
-        endDate = new Date(selectedSecond.dateString)
+      if (selected.dateString === selectedSecond.dateString) {
+        let dateISOString = new Date(selected.dateString)
+          .toISOString()
+          .split('T')[0]
 
-      while (currentDate <= endDate) {
-        let dateISOString = currentDate.toISOString().split('T')[0]
-
-        if (currentDate.getTime() === new Date(selected.dateString).getTime()) {
-          dateObject[dateISOString] = {
-            color: '#fff',
-            startingDay: true,
-            textColor: Colors.primary,
-          }
-        } else if (
-          currentDate.getTime() ===
-          new Date(selectedSecond.dateString).getTime()
-        ) {
-          dateObject[dateISOString] = {
-            color: '#fff',
-            textColor: Colors.primary,
-            endingDay: true,
-          }
-        } else {
-          dateObject[dateISOString] = {
-            color: '#fff',
-            textColor: Colors.primary,
-          }
+        dateObject[dateISOString] = {
+          color: '#fff',
+          selected: true,
+          textColor: Colors.primary,
         }
 
-        currentDate.setDate(currentDate.getDate() + 1)
-      }
+        setObjOfDates(dateObject)
+      } else {
+        let currentDate = new Date(selected.dateString),
+          endDate = new Date(selectedSecond.dateString)
 
-      setObjOfDates(dateObject)
+        while (currentDate <= endDate) {
+          let dateISOString = currentDate.toISOString().split('T')[0]
+
+          if (
+            currentDate.getTime() === new Date(selected.dateString).getTime()
+          ) {
+            dateObject[dateISOString] = {
+              color: '#fff',
+              startingDay: true,
+              textColor: Colors.primary,
+            }
+          } else if (
+            currentDate.getTime() ===
+            new Date(selectedSecond.dateString).getTime()
+          ) {
+            dateObject[dateISOString] = {
+              color: '#fff',
+              textColor: Colors.primary,
+              endingDay: true,
+            }
+          } else {
+            dateObject[dateISOString] = {
+              color: '#fff',
+              textColor: Colors.primary,
+            }
+          }
+
+          currentDate.setDate(currentDate.getDate() + 1)
+        }
+
+        setObjOfDates(dateObject)
+      }
     } else if (selected) {
       dateObject[selected.dateString] = {
         color: '#fff',
