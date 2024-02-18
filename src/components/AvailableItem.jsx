@@ -1,10 +1,17 @@
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 import React from 'react'
-import {ColorOpacity, Colors, ColorsArray, Dim} from '../constants/theme'
+import {
+  ColorOpacity,
+  Colors,
+  ColorsArray,
+  Dim,
+  ListColorsArray,
+} from '../constants/theme'
 
 import Entypo from 'react-native-vector-icons/Entypo'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import LinearGradient from 'react-native-linear-gradient'
+import {BlurView} from '@react-native-community/blur'
 
 export default function AvailableItem({
   extraStyle,
@@ -15,7 +22,13 @@ export default function AvailableItem({
     return (
       <LinearGradient
         style={[styles.gradient, extraStyle]}
-        colors={[...ColorsArray[index % 4]]}>
+        colors={[ListColorsArray[index % 4], ListColorsArray[index % 4]]}>
+        <BlurView
+          style={styles.absolute}
+          blurType="light"
+          blurAmount={15}
+          reducedTransparencyFallbackColor="white"
+        />
         <View style={styles.availableItemImage}>
           <Image
             source={require('../../assets/images/tv.png')}
@@ -104,6 +117,13 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     marginLeft: 7,
   },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
   availableItemsContainer: {
     height: Dim.height * 0.1,
     width: Dim.width * 0.84,
@@ -153,6 +173,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     marginLeft: 10,
     marginBottom: 2,
+    color: '#000',
   },
   distanceText: {
     fontSize: 10,

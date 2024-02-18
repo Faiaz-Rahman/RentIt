@@ -5,7 +5,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 import {Colors, Dim} from '../constants/theme'
 
-export default function Header() {
+export default function Header({locationShown = true}) {
   return (
     <View style={styles.header}>
       <AntDesign
@@ -16,7 +16,11 @@ export default function Header() {
           marginRight: 5,
         }}
       />
-      <View style={styles.locationContainer}>
+      <View
+        style={[
+          styles.locationContainer,
+          {display: !locationShown ? 'none' : 'flex'},
+        ]}>
         <Entypo
           name="location-pin"
           size={17}

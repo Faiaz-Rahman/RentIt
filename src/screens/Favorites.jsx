@@ -37,6 +37,7 @@ export default function Favorites() {
       <View style={styles.listContainer}>
         <FlatList
           data={favArr}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingTop: Dim.height * 0.03,
             paddingBottom: Dim.height * 0.1,
