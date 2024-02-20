@@ -13,6 +13,7 @@ export const Colors = {
   lightPrimaryOpacity: 'rgba(226, 214, 255, .7)',
   inactiveTintColor: '#4f5761',
   green: '#2ab364',
+  violet: '#794aff',
 }
 
 export const ColorsArray = [
