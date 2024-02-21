@@ -166,6 +166,17 @@ export default function Profile() {
             </View>
             <Text style={styles.customNumText}>17 Reviews</Text>
           </View>
+
+          <View
+            style={[
+              styles.customerContainer,
+              {
+                width: '20%',
+              },
+            ]}>
+            <Text style={styles.titleReviewSectionComponent}>7 items</Text>
+            <Text style={styles.customNumText}>Total</Text>
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -191,8 +202,9 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   addressText: {
-    fontSize: 12,
+    fontSize: 11,
     fontFamily: 'Poppins-Light',
+    color: '#fff',
   },
   userLocationContainer: {
     flexDirection: 'row',
@@ -254,5 +266,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginLeft: 3,
     marginTop: 2,
+  },
+  titleReviewSectionComponent: {
+    position: 'absolute',
+    top: '22%',
+    fontSize: 13,
+    fontFamily: 'Roboto-Bold',
+    color: '#fff',
   },
 })
