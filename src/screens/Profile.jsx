@@ -5,11 +5,12 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  FlatList,
 } from 'react-native'
 import React from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import {Colors, Dim} from '../constants/theme'
-import {Header} from '../components'
+import {AvailableItem, Header} from '../components'
 
 import Entypo from 'react-native-vector-icons/Entypo'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -101,15 +102,7 @@ export default function Profile() {
               source={require('../../assets/images/jason.jpg')}
               height={10}
               width={10}
-              style={{
-                height: 25,
-                width: 25,
-                borderRadius: 15,
-                position: 'absolute',
-                left: '25%',
-                top: '20%',
-                zIndex: -1,
-              }}
+              style={styles.firstCustomerImageStyle}
               resizeMode="cover"
             />
 
@@ -117,14 +110,13 @@ export default function Profile() {
               source={require('../../assets/images/jason.jpg')}
               height={10}
               width={10}
-              style={{
-                height: 25,
-                width: 25,
-                borderRadius: 15,
-                position: 'absolute',
-                top: '20%',
-                zIndex: 5,
-              }}
+              style={[
+                styles.firstCustomerImageStyle,
+                {
+                  zIndex: 5,
+                  left: '38%',
+                },
+              ]}
               resizeMode="cover"
             />
 
@@ -132,15 +124,14 @@ export default function Profile() {
               source={require('../../assets/images/jason.jpg')}
               height={10}
               width={10}
-              style={{
-                height: 25,
-                width: 25,
-                borderRadius: 15,
-                position: 'absolute',
-                zIndex: 15,
-                left: '50%',
-                top: '20%',
-              }}
+              style={[
+                styles.firstCustomerImageStyle,
+                {
+                  left: '50%',
+                  top: '20%',
+                  zIndex: 10,
+                },
+              ]}
               resizeMode="cover"
             />
             <Text style={styles.customNumText}>20 customers</Text>
@@ -179,6 +170,23 @@ export default function Profile() {
           </View>
         </View>
       </View>
+      <View style={styles.dragBar}></View>
+      <View style={styles.bottomScrollViewC}>
+        <FlatList
+          data={[1, 3, 4, 5, 7, 10]}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            gap: 10,
+            paddingTop: Dim.height * 0.05,
+            paddingBottom: Dim.height * 0.3,
+          }}
+          renderItem={({item, index}) => {
+            return (
+              <AvailableItem key={index} differentColors={true} index={index} />
+            )
+          }}
+        />
+      </View>
     </SafeAreaView>
   )
 }
@@ -186,6 +194,7 @@ const styles = StyleSheet.create({
   profile: {
     flex: 1,
     backgroundColor: Colors.homeBg,
+    position: 'relative',
   },
   imageContainer: {
     // backgroundColor: 'red',
@@ -273,5 +282,30 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: 'Roboto-Bold',
     color: '#fff',
+  },
+  firstCustomerImageStyle: {
+    height: 25,
+    width: 25,
+    borderRadius: 15,
+    position: 'absolute',
+    left: '25%',
+    top: '20%',
+    zIndex: -1,
+  },
+  dragBar: {
+    height: 5,
+    borderRadius: 2.5,
+    width: Dim.width * 0.2,
+    backgroundColor: '#fff',
+    alignSelf: 'center',
+    marginTop: 10,
+  },
+  bottomScrollViewC: {
+    height: Dim.height * 0.58,
+    backgroundColor: '#fff',
+    top: 0,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    marginTop: 10,
   },
 })
