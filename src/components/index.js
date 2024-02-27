@@ -6,6 +6,7 @@ import CustomHeader from './CustomHeader'
 import ImageSliderItem from './ImageSliderItem'
 import Button from './Button'
 import PricingContainer from './PricingContainer'
+import UserReviewItem from './UserReviewItem'
 
 export {
   PricingContainer,
@@ -16,4 +17,5 @@ export {
   CustomHeader,
   Header,
   AvailableItem,
+  UserReviewItem,
 }

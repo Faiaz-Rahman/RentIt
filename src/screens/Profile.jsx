@@ -10,7 +10,7 @@ import {
 import React from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import {Colors, Dim} from '../constants/theme'
-import {AvailableItem, Header} from '../components'
+import {AvailableItem, Header, UserReviewItem} from '../components'
 
 import Entypo from 'react-native-vector-icons/Entypo'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -181,9 +181,7 @@ export default function Profile() {
             paddingBottom: Dim.height * 0.3,
           }}
           renderItem={({item, index}) => {
-            return (
-              <AvailableItem key={index} differentColors={true} index={index} />
-            )
+            return <UserReviewItem index={index} />
           }}
         />
       </View>
