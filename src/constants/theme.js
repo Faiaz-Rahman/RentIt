@@ -31,3 +31,9 @@ export const ColorOpacity = [
 ]
 
 export const ListColorsArray = ['#eaf7ef', '#f2edff', '#fff2cc', '#ffedf5']
+export const ListColorsArrayReviews = [
+  ['#eaf7ef', '#26b261'],
+  ['#f2edff', '#794afe'],
+  ['#fff2cc', '#fe9ea0'],
+  ['#ffedf5', '#ea4d9a'],
+]
