@@ -7,6 +7,7 @@ import ImageSliderItem from './ImageSliderItem'
 import Button from './Button'
 import PricingContainer from './PricingContainer'
 import UserReviewItem from './UserReviewItem'
+import MessagesItem from './MessagesItem'
 
 export {
   PricingContainer,
@@ -18,4 +19,5 @@ export {
   Header,
   AvailableItem,
   UserReviewItem,
+  MessagesItem,
 }

@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, StatusBar, FlatList} from 'react-native'
 
 import {SafeAreaView} from 'react-native-safe-area-context'
 
-import {AvailableItem, Header} from '../components'
+import {AvailableItem, Header, MessagesItem} from '../components'
 import {Colors, Dim} from '../constants/theme'
 
 export default function Messages() {
@@ -37,16 +37,7 @@ export default function Messages() {
           }}
           initialNumToRender={8}
           renderItem={({item, index}) => {
-            return (
-              <AvailableItem
-                key={index}
-                extraStyle={{
-                  marginBottom: 10,
-                }}
-                differentColors={true}
-                index={index}
-              />
-            )
+            return <MessagesItem index={index} />
           }}
         />
       </View>
