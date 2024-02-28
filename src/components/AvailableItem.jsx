@@ -6,6 +6,7 @@ import {
   ColorsArray,
   Dim,
   ListColorsArray,
+  ListColorsArrayReviews,
 } from '../constants/theme'
 
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -39,7 +40,11 @@ export default function AvailableItem({
         <View style={styles.availableItemTitleC}>
           <Text style={styles.titleStyle}>Craftsman Cordless Drill</Text>
           <View style={styles.availableItemInfoC}>
-            <Entypo name="location-pin" size={16} color={Colors.homeBg} />
+            <Entypo
+              name="location-pin"
+              size={16}
+              color={ListColorsArrayReviews[index % 4][1]}
+            />
             <Text style={styles.distanceText}>4.0km</Text>
             <Text style={styles.rateText}>15$ /hr</Text>
             <View style={styles.ratingC}>
@@ -48,10 +53,11 @@ export default function AvailableItem({
                 style={{
                   height: 13,
                   width: 13,
-                  tintColor: Colors.primary,
+                  tintColor: ListColorsArrayReviews[index % 4][1],
+                  marginRight: 3,
                 }}
               />
-              <Text style={styles.ratingText}>4.9</Text>
+              <Text style={[styles.ratingText, {color: '#000'}]}>4.9</Text>
             </View>
           </View>
         </View>
@@ -62,7 +68,11 @@ export default function AvailableItem({
             top: 15,
             right: 15,
           }}>
-          <AntDesign name="heart" color={Colors.primary} size={15} />
+          <AntDesign
+            name="heart"
+            color={ListColorsArrayReviews[index % 4][1]}
+            size={15}
+          />
         </TouchableOpacity>
       </LinearGradient>
     )
