@@ -1,21 +1,39 @@
 import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 import {Colors, Dim} from '../constants/theme'
 
-export default function Header({locationShown = true}) {
+export default function Header({
+  locationShown = true,
+  backEnabled,
+  onBackPress,
+}) {
   return (
     <View style={styles.header}>
-      <AntDesign
-        name="search1"
-        size={17}
-        color={'#fff'}
-        style={{
-          marginRight: 5,
-        }}
-      />
+      {backEnabled ? (
+        <TouchableOpacity onPress={onBackPress}>
+          <AntDesign
+            name="arrowleft"
+            size={17}
+            color={'#fff'}
+            style={{
+              marginRight: 5,
+            }}
+          />
+        </TouchableOpacity>
+      ) : (
+        <AntDesign
+          name="search1"
+          size={17}
+          color={'#fff'}
+          style={{
+            marginRight: 5,
+          }}
+        />
+      )}
+
       <View
         style={[
           styles.locationContainer,

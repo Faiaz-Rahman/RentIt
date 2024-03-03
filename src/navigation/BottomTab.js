@@ -9,6 +9,7 @@ import {Colors, Dim} from '../constants/theme'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feather from 'react-native-vector-icons/Feather'
+import {MessageNav} from './MessageNav'
 
 const BottomTabNav = createBottomTabNavigator()
 
@@ -58,7 +59,7 @@ const BottomTab = () => {
       />
       <BottomTabNav.Screen
         name="messages"
-        component={Messages}
+        component={MessageNav}
         options={{
           tabBarIcon: ({focused, color, size}) => {
             return (

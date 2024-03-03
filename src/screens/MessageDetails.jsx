@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   View,
   Text,
@@ -7,20 +6,19 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native'
-
+import React from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
-
-import {AvailableItem, Header, MessagesItem} from '../components'
+import {Header, MessagesItem} from '../components'
 import {Colors, Dim} from '../constants/theme'
 import {useNavigation} from '@react-navigation/native'
 
-export default function Messages() {
+export default function MessageDetails() {
   const favArr = Array.from({length: 10}, (v, i) => i + 1)
   const navigation = useNavigation()
 
   return (
     <SafeAreaView
-      style={styles.messages}
+      style={styles.messageDetails}
       initialMetrics={{
         insets: {
           top: 0,
@@ -35,7 +33,12 @@ export default function Messages() {
         barStyle={'light-content'}
       />
 
-      <Header />
+      <Header
+        backEnabled={true}
+        onBackPress={() => {
+          navigation.goBack()
+        }}
+      />
 
       <View style={styles.listContainer}>
         <FlatList
@@ -63,10 +66,10 @@ export default function Messages() {
 }
 
 const styles = StyleSheet.create({
-  messages: {
-    flex: 1,
+  messageDetails: {
+    height: Dim.height,
+    width: Dim.width,
     backgroundColor: Colors.homeBg,
-    position: 'relative',
   },
   listContainer: {
     position: 'absolute',
