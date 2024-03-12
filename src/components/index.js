@@ -8,6 +8,7 @@ import Button from './Button'
 import PricingContainer from './PricingContainer'
 import UserReviewItem from './UserReviewItem'
 import MessagesItem from './MessagesItem'
+import MessageDetailItem from './MessageDetailItem'
 
 export {
   PricingContainer,
@@ -20,4 +21,5 @@ export {
   AvailableItem,
   UserReviewItem,
   MessagesItem,
+  MessageDetailItem,
 }

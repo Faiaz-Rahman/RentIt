@@ -5,15 +5,18 @@ import {
   StatusBar,
   FlatList,
   TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native'
 import React from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
-import {Header, MessagesItem} from '../components'
+import {Header, MessageDetailItem, MessagesItem} from '../components'
 import {Colors, Dim} from '../constants/theme'
 import {useNavigation} from '@react-navigation/native'
 
 export default function MessageDetails() {
-  const favArr = Array.from({length: 10}, (v, i) => i + 1)
+  const favArr = Array.from({length: 15}, (v, i) => i + 1)
   const navigation = useNavigation()
 
   return (
@@ -51,15 +54,24 @@ export default function MessageDetails() {
           initialNumToRender={8}
           renderItem={({item, index}) => {
             return (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('message_details')
-                }}>
-                <MessagesItem index={index} />
-              </TouchableOpacity>
+              <MessageDetailItem
+                key={index}
+                index={index}
+                item={item}
+                type={index % 2 ? 'current_user' : 'remote_user'}
+              />
             )
           }}
         />
+
+        <KeyboardAvoidingView
+          style={{flex: 1, backgroundColor: 'red'}}
+          r
+          behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
+          <View style={styles.inputC}>
+            <TextInput style={styles.input} />
+          </View>
+        </KeyboardAvoidingView>
       </View>
     </SafeAreaView>
   )
@@ -70,14 +82,38 @@ const styles = StyleSheet.create({
     height: Dim.height,
     width: Dim.width,
     backgroundColor: Colors.homeBg,
+    position: 'relative',
   },
   listContainer: {
     position: 'absolute',
     top: Dim.height * 0.15,
     height: Dim.height * 0.85,
     width: Dim.width,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+  },
+  inputC: {
+    height: Dim.height * 0.07,
+    width: Dim.width * 0.85,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    position: 'absolute',
+    alignSelf: 'center',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    justifyContent: 'center',
+    // backgroundColor: 'red',
+    overflow: 'hidden',
+    bottom: Dim.height * 0.11,
+    paddingLeft: 10,
+  },
+  input: {
+    fontSize: 13,
+    color: '#615d5d',
+    // backgroundColor: 'gold',
+    height: '100%',
+    width: '100%',
+    fontFamily: 'Roboto-Medium',
   },
 })
