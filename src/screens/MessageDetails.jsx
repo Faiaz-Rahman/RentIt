@@ -1,3 +1,4 @@
+import React, {useState, useEffect} from 'react'
 import {
   View,
   Text,
@@ -9,7 +10,6 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
-import React from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import {Header, MessageDetailItem, MessagesItem} from '../components'
 import {Colors, Dim} from '../constants/theme'
@@ -20,6 +20,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 export default function MessageDetails() {
   const favArr = Array.from({length: 15}, (v, i) => i + 1)
   const navigation = useNavigation()
+
+  const [messageText, setMessageText] = useState('')
+  const [bottom, setBottom] = useState(Dim.height * 0.11)
 
   return (
     <SafeAreaView
@@ -67,13 +70,20 @@ export default function MessageDetails() {
         />
 
         <KeyboardAvoidingView
-          keyboardVerticalOffset={300}
           behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
-          <View style={styles.inputC}>
+          <View
+            onLayout={e => {
+              console.log(e.nativeEvent.layout.y)
+            }}
+            style={[styles.inputC, {bottom}]}>
             <TextInput
-              style={styles.input}
+              style={[styles.input]}
               placeholder="Write your message"
               placeholderTextColor={'#9e9a9a'}
+              cursorColor={Colors.primary}
+              onChangeText={text => {
+                setMessageText(text)
+              }}
             />
             <TouchableOpacity style={styles.sendButton}>
               <FontAwesome name="send" color={Colors.primary} size={20} />
@@ -113,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // backgroundColor: 'red',
     overflow: 'hidden',
-    bottom: Dim.height * 0.11,
+    // bottom: Dim.height * 0.11,
     // marginTop: 200,
     paddingLeft: 10,
   },
