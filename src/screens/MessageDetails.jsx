@@ -15,6 +15,8 @@ import {Header, MessageDetailItem, MessagesItem} from '../components'
 import {Colors, Dim} from '../constants/theme'
 import {useNavigation} from '@react-navigation/native'
 
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+
 export default function MessageDetails() {
   const favArr = Array.from({length: 15}, (v, i) => i + 1)
   const navigation = useNavigation()
@@ -49,7 +51,7 @@ export default function MessageDetails() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingTop: Dim.height * 0.03,
-            paddingBottom: Dim.height * 0.1,
+            paddingBottom: Dim.height * 0.2,
           }}
           initialNumToRender={8}
           renderItem={({item, index}) => {
@@ -65,11 +67,17 @@ export default function MessageDetails() {
         />
 
         <KeyboardAvoidingView
-          style={{flex: 1, backgroundColor: 'red'}}
-          r
+          keyboardVerticalOffset={300}
           behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
           <View style={styles.inputC}>
-            <TextInput style={styles.input} />
+            <TextInput
+              style={styles.input}
+              placeholder="Write your message"
+              placeholderTextColor={'#9e9a9a'}
+            />
+            <TouchableOpacity style={styles.sendButton}>
+              <FontAwesome name="send" color={Colors.primary} size={20} />
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -106,6 +114,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     overflow: 'hidden',
     bottom: Dim.height * 0.11,
+    // marginTop: 200,
     paddingLeft: 10,
   },
   input: {
@@ -115,5 +124,14 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     fontFamily: 'Roboto-Medium',
+  },
+  sendButton: {
+    height: '100%',
+    width: '15%',
+    right: 0,
+    // backgroundColor: 'red',
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })
