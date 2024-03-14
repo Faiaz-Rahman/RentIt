@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  Animated,
 } from 'react-native'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import {Header, MessageDetailItem, MessagesItem} from '../components'
@@ -23,19 +24,42 @@ export default function MessageDetails() {
   const navigation = useNavigation()
 
   const [messageText, setMessageText] = useState('')
-  const [bottom, setBottom] = useState(Dim.height * 0.11)
+  const pushInput = useRef(new Animated.Value(0)).current
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
+  const [keyboardMetrics, setKeyboardMetrics] = useState(0)
+
+  const pushInputToTop = toValue => {
+    Animated.timing(pushInput, {
+      toValue,
+      useNativeDriver: false,
+      duration: 200,
+    }).start()
+  }
+
+  const interpolateBottom = pushInput.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, keyboardMetrics * -1],
+  })
+
+  useEffect(() => {
+    // console.log('is the keyboard open? => ', isKeyboardOpen)
+    if (isKeyboardOpen) {
+      setKeyboardMetrics(Keyboard.metrics().height)
+    }
+  }, [isKeyboardOpen])
 
   useEffect(() => {
     const showKeyboard = Keyboard.addListener('keyboardDidShow', () => {
-      console.log('keyboard is open!')
-      const metrics = Keyboard.metrics()
+      // console.log('keyboard is open!')
+      setIsKeyboardOpen(true)
+
+      pushInputToTop(1)
       // console.log('keyboard while open => metrics =>', metrics)
-      const bottomHeight = Dim.height - metrics.height
-      setBottom(bottomHeight)
     })
     const hideKeyboard = Keyboard.addListener('keyboardDidHide', () => {
       // console.log('keyboard hidden ...')
-      setBottom(Dim.height * 0.11)
+      setIsKeyboardOpen(false)
+      pushInputToTop(0)
     })
     return () => {
       showKeyboard.remove()
@@ -90,11 +114,20 @@ export default function MessageDetails() {
 
         <KeyboardAvoidingView
           behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
-          <View
+          <Animated.View
             // onLayout={e => {
             //   console.log(e.nativeEvent.layout.y)
             // }}
-            style={[styles.inputC, {bottom: bottom}]}>
+            style={[
+              styles.inputC,
+              {
+                transform: [
+                  {
+                    translateY: interpolateBottom,
+                  },
+                ],
+              },
+            ]}>
             <TextInput
               style={[styles.input]}
               placeholder="Write your message"
@@ -107,7 +140,7 @@ export default function MessageDetails() {
             <TouchableOpacity style={styles.sendButton}>
               <FontAwesome name="send" color={Colors.primary} size={20} />
             </TouchableOpacity>
-          </View>
+          </Animated.View>
         </KeyboardAvoidingView>
       </View>
     </SafeAreaView>
