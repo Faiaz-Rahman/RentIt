@@ -9,6 +9,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
 } from 'react-native'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import {Header, MessageDetailItem, MessagesItem} from '../components'
@@ -23,6 +24,24 @@ export default function MessageDetails() {
 
   const [messageText, setMessageText] = useState('')
   const [bottom, setBottom] = useState(Dim.height * 0.11)
+
+  useEffect(() => {
+    const showKeyboard = Keyboard.addListener('keyboardDidShow', () => {
+      console.log('keyboard is open!')
+      const metrics = Keyboard.metrics()
+      // console.log('keyboard while open => metrics =>', metrics)
+      const bottomHeight = Dim.height - metrics.height
+      setBottom(bottomHeight)
+    })
+    const hideKeyboard = Keyboard.addListener('keyboardDidHide', () => {
+      // console.log('keyboard hidden ...')
+      setBottom(Dim.height * 0.11)
+    })
+    return () => {
+      showKeyboard.remove()
+      hideKeyboard.remove()
+    }
+  }, [])
 
   return (
     <SafeAreaView
@@ -72,10 +91,10 @@ export default function MessageDetails() {
         <KeyboardAvoidingView
           behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
           <View
-            onLayout={e => {
-              console.log(e.nativeEvent.layout.y)
-            }}
-            style={[styles.inputC, {bottom}]}>
+            // onLayout={e => {
+            //   console.log(e.nativeEvent.layout.y)
+            // }}
+            style={[styles.inputC, {bottom: bottom}]}>
             <TextInput
               style={[styles.input]}
               placeholder="Write your message"
@@ -123,7 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // backgroundColor: 'red',
     overflow: 'hidden',
-    // bottom: Dim.height * 0.11,
+    bottom: Dim.height * 0.11,
     // marginTop: 200,
     paddingLeft: 10,
   },
