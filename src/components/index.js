@@ -9,6 +9,7 @@ import PricingContainer from './PricingContainer'
 import UserReviewItem from './UserReviewItem'
 import MessagesItem from './MessagesItem'
 import MessageDetailItem from './MessageDetailItem'
+import InputContainer from './InputContainer'
 
 export {
   PricingContainer,
@@ -18,6 +19,7 @@ export {
   ImageSliderItem,
   CustomHeader,
   Header,
+  InputContainer,
   AvailableItem,
   UserReviewItem,
   MessagesItem,
