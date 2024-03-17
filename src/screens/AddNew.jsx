@@ -8,36 +8,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export default function AddNew() {
-  const inputContainerWithIndex = (ind, title) => {
-    if (ind === 0) {
-      return (
-        <InputContainer
-          index={ind}
-          title={title}
-          bgColor={ListColorsArrayReviews[ind][0]}>
-          <MaterialCommunityIcons
-            name="book-alphabet"
-            size={25}
-            color={ListColorsArrayReviews[ind][1]}
-          />
-        </InputContainer>
-      )
-    } else if (ind === 1) {
-      return (
-        <InputContainer
-          index={ind}
-          title={title}
-          bgColor={ListColorsArrayReviews[ind][0]}>
-          <MaterialIcons
-            name="attach-money"
-            size={25}
-            color={ListColorsArrayReviews[ind][1]}
-          />
-        </InputContainer>
-      )
-    }
-  }
-
   return (
     <SafeAreaView
       style={styles.addNew}
@@ -59,8 +29,29 @@ export default function AddNew() {
 
       <View style={styles.listContainer}></View>
 
-      {inputContainerWithIndex(0, 'Name of your book')}
-      {inputContainerWithIndex(1, 'Rent price in USD')}
+      {/* {inputContainerWithIndex(0, 'Name of your book')}
+      {inputContainerWithIndex(1, 'Rent price in USD')} */}
+      <InputContainer
+        index={0}
+        title={'Name of your book'}
+        bgColor={ListColorsArrayReviews[0][0]}>
+        <MaterialCommunityIcons
+          name="book-alphabet"
+          size={25}
+          color={ListColorsArrayReviews[0][1]}
+        />
+      </InputContainer>
+
+      <InputContainer
+        index={1}
+        title={'Rent price in USD'}
+        bgColor={ListColorsArrayReviews[1][0]}>
+        <MaterialCommunityIcons
+          name="book-alphabet"
+          size={25}
+          color={ListColorsArrayReviews[1][1]}
+        />
+      </InputContainer>
     </SafeAreaView>
   )
 }
